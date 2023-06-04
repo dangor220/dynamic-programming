@@ -1,4 +1,12 @@
 body {
-  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  max-width: 1080px;
+  margin: 0 auto;
+
+  font-size: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   background-color: antiquewhite;
 }

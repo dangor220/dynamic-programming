@@ -30,6 +30,7 @@ const semanticQuanta = {
 		},
 	},
 };
+
 const totalTime = 18;
 
 function getAllOptions(quanta, time) {
@@ -74,6 +75,7 @@ function getAllOptions(quanta, time) {
 }
 
 function getBestResult(results) {
+	
 	let max = 0,
 		time = 0,
 		quants = '';
@@ -83,7 +85,7 @@ function getBestResult(results) {
 	);
 
 	if (completeCompetition.length === 0) {
-		return `It is impossible to study all semantic quanta in a given time`;
+		return `It's impossible to study all semantic quanta in a given time`;
 	}
 
 	completeCompetition.forEach((item) => {
@@ -112,4 +114,4 @@ function getBestResult(results) {
 	return `The maximum possible level of mastering - "${max}" points for "${time}" time units, where:\n${quants}`;
 }
 
-console.log(getBestResult(getAllOptions(semanticQuanta, totalTime)));
+console.log(getBestResult(getAllOptions(semanticQuanta, totalTime)))
