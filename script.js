@@ -30,89 +30,86 @@ const semanticQuanta = {
 		},
 	},
 };
-const maxTime = 7;
+const totalTime = 18;
 
-function getAllVariants(quanta, time) {
-	const results = [];
+function getAllOptions(quanta, time) {
+	const options = [];
+
+	const matrix = new Array(time + 1).fill(0);
 	let oldMatrix = [];
-	let matrix = new Array(time + 1).fill(0);
 
 	for (const [keyLevel, level] of Object.entries(quanta)) {
 		for (const [keyQuant, quant] of Object.entries(level)) {
-			let count = 0;
+			let freeTime = 0;
 
-			matrix.forEach((item, index, arr) => {
+			for (const [index] of matrix.entries()) {
 				if (quant.time <= index) {
-					count = index - quant.time;
-					
-					if (arr[index] === 0) {
-						arr[index] = {
+					freeTime = index - quant.time;
+
+					if (matrix[index] === 0) {
+						matrix[index] = {
+							[keyQuant]: { keyLevel, score: quant.score, time: quant.time },
+						};
+					} else if (freeTime && oldMatrix.length !== 0) {
+						matrix[index] = {
+							...oldMatrix[freeTime],
 							[keyQuant]: { keyLevel, score: quant.score, time: quant.time },
 						};
 					} else {
-						arr[index] = {
+						matrix[index] = {
 							[keyQuant]: { keyLevel, score: quant.score, time: quant.time },
 						};
 					}
-
-					if (count && oldMatrix.length !== 0) {
-						arr[index] = {
-							...oldMatrix[count],
-							[keyQuant]: { keyLevel, score: quant.score, time: quant.time },
-						};
-					}
-
 				}
-			});
-			
-			results.push(matrix[matrix.length - 1]);
+			}
+
+			options.push(matrix[matrix.length - 1]);
 			oldMatrix = JSON.parse(JSON.stringify(matrix));
 		}
 	}
 
-	return results;
+	options.push(Object.values(quanta.base).length);
+
+	return options;
 }
 
 function getBestResult(results) {
-	let max = 0;
-	let time = 0;
-	let quants = '';
-	let completeCompetition = results.filter(item => Object.keys(item).length === 3);
+	let max = 0,
+		time = 0,
+		quants = '';
+
+	let completeCompetition = results.filter(
+		(item) => Object.keys(item).length === results[results.length - 1]
+	);
+
+	if (completeCompetition.length === 0) {
+		return `It is impossible to study all semantic quanta in a given time`;
+	}
 
 	completeCompetition.forEach((item) => {
-		let currrentMax = 0;
-		let currentTime = 0;
-		let currentQuants = '';
+		let currrentMax = 0,
+			currentTime = 0,
+			currentQuants = '';
 
-		for (const [key,value] of Object.entries(item)) {
+		for (const [key, value] of Object.entries(item)) {
 			currrentMax += value.score;
 			currentTime += value.time;
-			currentQuants += `Занятие: ${key} Уровень: ${value.keyLevel} в ${value.score} баллов за ${value.time} ч.;\n`
+			currentQuants += `The semantic quantum "${key}" can be studied at the level "${value.keyLevel}" in "${value.score}" points for "${value.time}" time units. \n`;
 		}
 
 		if (max < currrentMax) {
 			max = currrentMax;
 			time = currentTime;
 			quants = currentQuants;
-		}
-
-		// Если баллов одинаково, проверяем сколько меньше времени потребовалось на освоение (меньше - лучше);
-
-		if (max === currrentMax) {
+		} else if (max === currrentMax) {
 			if (currentTime < time) {
 				max = currentMax;
 				time = currentTime;
 			}
 		}
-	})
+	});
 
-	console.log(completeCompetition);
-
-
-	return `Максимальное число баллов ${max} за ${time} времени:\n${quants}`
+	return `The maximum possible level of mastering - "${max}" points for "${time}" time units, where:\n${quants}`;
 }
 
-const variants = getAllVariants(semanticQuanta, maxTime);
-const results = getBestResult(variants);
-
-console.log(results)
+console.log(getBestResult(getAllOptions(semanticQuanta, totalTime)));
