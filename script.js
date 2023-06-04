@@ -30,8 +30,7 @@ const semanticQuanta = {
 		},
 	},
 };
-
-const totalTime = 18;
+const totalTime = 20;
 
 function getAllOptions(quanta, time) {
 	const options = [];
@@ -41,25 +40,54 @@ function getAllOptions(quanta, time) {
 
 	for (const [keyLevel, level] of Object.entries(quanta)) {
 		for (const [keyQuant, quant] of Object.entries(level)) {
-			let freeTime = 0;
-
 			for (const [index] of matrix.entries()) {
 				if (quant.time <= index) {
-					freeTime = index - quant.time;
-
-					if (matrix[index] === 0) {
+					if (oldMatrix.length === 0) {
 						matrix[index] = {
-							[keyQuant]: { keyLevel, score: quant.score, time: quant.time },
+							sum: quant.score,
+							[keyQuant]: { keyLevel, time: quant.time, score: quant.score },
 						};
-					} else if (freeTime && oldMatrix.length !== 0) {
-						matrix[index] = {
-							...oldMatrix[freeTime],
-							[keyQuant]: { keyLevel, score: quant.score, time: quant.time },
-						};
+					} else if (index - quant.time !== 0) {
+						if (
+							oldMatrix[index].sum >
+							quant.score + oldMatrix[index - quant.time].sum
+						) {
+							matrix[index] = oldMatrix[index];
+						} else {
+							if (oldMatrix[index - quant.time].hasOwnProperty(keyQuant)) {
+								matrix[index] = {
+									...oldMatrix[index - quant.time],
+									sum:
+										quant.score +
+										oldMatrix[index - quant.time].sum -
+										oldMatrix[index - quant.time][keyQuant].score,
+									[keyQuant]: {
+										keyLevel,
+										time: quant.time,
+										score: quant.score,
+									},
+								};
+							} else {
+								matrix[index] = {
+									...oldMatrix[index - quant.time],
+									sum: quant.score + oldMatrix[index - quant.time].sum,
+									[keyQuant]: {
+										keyLevel,
+										time: quant.time,
+										score: quant.score,
+									},
+								};
+							}
+						}
 					} else {
-						matrix[index] = {
-							[keyQuant]: { keyLevel, score: quant.score, time: quant.time },
-						};
+						if (oldMatrix[index].sum > quant.score) {
+							matrix[index] = oldMatrix[index];
+						} else {
+							matrix[index] = {
+								sum: quant.score,
+								[keyQuant]: { keyLevel, time: quant.time, score: quant.score },
+							};
+						}
 					}
 				}
 			}
@@ -69,49 +97,7 @@ function getAllOptions(quanta, time) {
 		}
 	}
 
-	options.push(Object.values(quanta.base).length);
-
-	return options;
+	return options[options.length-1];
 }
 
-function getBestResult(results) {
-	
-	let max = 0,
-		time = 0,
-		quants = '';
-
-	let completeCompetition = results.filter(
-		(item) => Object.keys(item).length === results[results.length - 1]
-	);
-
-	if (completeCompetition.length === 0) {
-		return `It's impossible to study all semantic quanta in a given time`;
-	}
-
-	completeCompetition.forEach((item) => {
-		let currrentMax = 0,
-			currentTime = 0,
-			currentQuants = '';
-
-		for (const [key, value] of Object.entries(item)) {
-			currrentMax += value.score;
-			currentTime += value.time;
-			currentQuants += `The semantic quantum "${key}" can be studied at the level "${value.keyLevel}" in "${value.score}" points for "${value.time}" time units. \n`;
-		}
-
-		if (max < currrentMax) {
-			max = currrentMax;
-			time = currentTime;
-			quants = currentQuants;
-		} else if (max === currrentMax) {
-			if (currentTime < time) {
-				max = currentMax;
-				time = currentTime;
-			}
-		}
-	});
-
-	return `The maximum possible level of mastering - "${max}" points for "${time}" time units, where:\n${quants}`;
-}
-
-console.log(getBestResult(getAllOptions(semanticQuanta, totalTime)))
+console.log(getAllOptions(semanticQuanta, totalTime));
