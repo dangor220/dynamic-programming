@@ -30,27 +30,27 @@ const semanticQuanta = {
 		},
 	},
 };
-const totalTime = 9;
+const totalTime = 11;
 
-function getBestResult(quanta, time) {
+function getBestResult(setQuants, totalTime) {
 	const result = [];
-	const arr = new Array(time + 1);
+	const arr = new Array(totalTime + 1);
 	let prevArr = [];
 
-	for (const [keyLevel, level] of Object.entries(quanta)) {
+	for (const [keyLevel, level] of Object.entries(setQuants)) {
 		for (const [keyQuant, quant] of Object.entries(level)) {
 			for (const [index] of arr.entries()) {
 				if (quant.time <= index) {
-					let freeTime = index - quant.time;
-					if (freeTime && prevArr.length) {
-						if (prevArr[freeTime].hasOwnProperty(keyQuant)) {
-							prevArr[index].max > quant.score + prevArr[freeTime].max - prevArr[freeTime][keyQuant].score ?
+					let leftTime = index - quant.time;
+					if (leftTime && prevArr.length) {
+						if (prevArr[leftTime].hasOwnProperty(keyQuant)) {
+							prevArr[index].max > quant.score + prevArr[leftTime].max - prevArr[leftTime][keyQuant].score ?
 								arr[index] = prevArr[index] :
-								arr[index] = {...prevArr[freeTime], max:quant.score + prevArr[freeTime].max - prevArr[freeTime][keyQuant].score, [keyQuant]: { keyLevel, time: quant.time, score: quant.score}}
+								arr[index] = {...prevArr[leftTime], max:quant.score + prevArr[leftTime].max - prevArr[leftTime][keyQuant].score, [keyQuant]: { keyLevel, time: quant.time, score: quant.score}}
 						} else {
-							prevArr[index].max > quant.score + prevArr[freeTime].max ? 
+							prevArr[index].max > quant.score + prevArr[leftTime].max ? 
 								arr[index] = prevArr[index] :
-								arr[index] = {...prevArr[freeTime], max: quant.score + prevArr[freeTime].max, [keyQuant]: { keyLevel, time: quant.time, score: quant.score}}
+								arr[index] = {...prevArr[leftTime], max: quant.score + prevArr[leftTime].max, [keyQuant]: { keyLevel, time: quant.time, score: quant.score}}
 						}
 					} else {
 						prevArr.length && prevArr[index].max > quant.score ? (arr[index] = prevArr[index]) : (arr[index] = { max: quant.score, [keyQuant]: { keyLevel, time: quant.time, score: quant.score}});
@@ -62,9 +62,9 @@ function getBestResult(quanta, time) {
 		}
 	}
 
-	return Object.values(result[result.length - 1]).length - 1 === Object.values(quanta.base).length ? 
+	return Object.values(result[result.length - 1]).length - 1 === Object.values(setQuants.base).length ? 
 					result[result.length - 1] : 
-					`It is impossible to master every quantum in ${time} units of time`;
+					`It is impossible to master every quantum in ${totalTime} units of time`;
 }
 
 console.log(getBestResult(semanticQuanta, totalTime));

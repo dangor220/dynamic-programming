@@ -1,96 +1,57 @@
-Листинг 1. Алгоритм получения возможных вариантов максимизации освоения семантических квантов.
+Листинг 1. Алгоритм получения максимально возможного уровня освоения семантических квантов.
 
-procedure GetAllOptions(quanta, time)
-    INPUT: Структура данных quanta, представляет набор семантических квантов
-          (level - уровни усвоения, quantum - кванты, time - время на усвоение, score - балл для заданного уровня)
-          Структура объекта quanta = { level: { quantum: { time, score }, ..., quantum_n: {...} }, ...}
-          Общее допустимое время на освоение компетенции - time.
-    OUTPUT: Массив данных options, содержащий возможные варианты максимизации освоения семантических квантов
+function getBestResult(setQuants, totalTime)
+    INPUT: Структура данных setQuants представляет набор семантических квантов
+           Структура объекта setQuants = { level: { quantum: { time, score }, ..., quantum_n: {...} }, ...},
+           где level - уровень освоения, quantum - квант, time - время на освоение, score - балл для заданного уровня
+           Общее допустимое время на освоение семантических квантов - totalTime.
+    OUTPUT: Объект result содержит максимально возможный уровень освоения семантических квантов
+            и наилучшее распределение времени
 
-    options := array([])
-    matrix := array([time + 1])
-    oldMatrix := array([])
+    result := array([])
+    arr := array([totalTime + 1])
+    prevArr := array([])
 
-    for level in quanta
-      for quantum in level
-        freeTime := 0
+    for level in setQuants
+      for quant in level
+        for index in arr
 
-        for index of matrix
+          if quant.time <= index then
+            leftTime := index - quant.time
 
-          if quantum.time <= index then
-            freeTime := index - quantum.time
-            
-            if matrix[index] = 0 then
-              matrix[index] := {quantum: {level, score: quantum.score, time: quantum.time}}
-            else if freeTime && oldMatrix.length != 0 then
-              matrix[index] := {oldMatrix[freeTime], quantum: {level, score: quantum.score, time: quantum.time}}
+            if leftTime !== 0 && prevArr.length !== 0 then
+              if prevArr[leftTime].includes(quant) then
+                if prevArr[index].max > quant.score + prevArr[leftTime].max - prevArr[leftTime][quant].score then
+                  arr[index] = prevArr[index]
+                else
+                  arr[index] = {...prevArr[leftTime], max:quant.score + prevArr[leftTime].max - prevArr[leftTime][quant].score, [quant]: { keyLevel, time: quant.time, score: quant.score}}
+                end if
+              else 
+                if prevArr[index].max > quant.score + prevArr[leftTime].max then
+                  arr[index] = prevArr[index]
+                else
+                  arr[index] = {...prevArr[leftTime], max: quant.score + prevArr[leftTime].max, [quant]: { keyLevel, time: quant.time, score: quant.score}}
+                end if
+              end if
             else
-              matrix[index] := {quantum: {level, score: quantum.score, time: quantum.time}}
+              if prevArr.length && prevArr[index].max > quant.score
+                arr[index] = prevArr[index]
+              else
+                arr[index] = { max: quant.score, [quant]: { keyLevel, time: quant.time, score: quant.score}}
+              end if
             end if
-
           end if
         end for
 
-        options.push(matrix[matrix.length - 1])
-        oldMatrix := matrix
+        result.push(arr[arr.length - 1])
+        prevArr := arr
 
       end for
     end for
 
-    options.push(Object.values(quanta.base).length)
-
-    return options
-end procedure
-
-
-Листинг 2. Алгоритм получения лучшего варианта максимизации освоения семантических квантов
-
-procedure GetBestResult(results)
-    INPUT: results - массив данных, содержащий возможные варианты максимизации освоения семантических квантов
-           результат выполнения функции GetAllOptions(quanta, time)
-    OUTPUT: Строка, отображающая наилучший вариант распределения времени для максимизации результатов освоения
-            семантических квантов
-    
-    max := 0
-    time := 0
-    quants := string('')
-    completeCompetition := array([])
-
-    for item of results
-      if item.length = results[results.length - 1] then
-        completeCompetition.push(item)
-      end if
-    end for
-
-    if  completeCompetition.length = 0 then
-      return 'It's impossible to study all semantic quanta in a given time'
+    if quant.time <= index then
+      return result[result.length - 1]
+    else 
+      return 'It is impossible to master every quantum in' + totalTime + 'units of time'
     end if
-
-    for item of completeCompetition
-      currentMax := 0
-      currentTime := 0
-      currentQuants := string('')
-
-      for value of item
-        currrentMax := currrentMax + value.score;
-        currentTime := currentTime + value.time;
-        currentQuants := currentQuants + 'The semantic quantum '
-                        + value + 'can be studied at the level'
-                        + value.keyLevel + ' in ' + value.score
-                        + ' points for ' + value.time + ' time units. \n';
-      end for
-
-      if max < currentMax then
-        max := currrentMax
-        time := currentTime
-        quants := currentQuants
-      else if max = currrentMax then
-        if currentTime < time then
-          max = currentMax;
-          time = currentTime;
-        end if
-      end if
-    end for
-
-  return 'The maximum possible level of mastering - ' + max + ' points for ' + time + ' time units, where:\n ' + quants
-end procedure
+end function
