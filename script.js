@@ -30,42 +30,38 @@ const semanticQuanta = {
 		},
 	},
 };
-const totalTime = 7;
+const totalTime = 20;
 
 function getBestResult(quanta, time) {
 	const result = [];
-	const matrix = new Array(time + 1);
-	let oldMatrix = [];
+	const arr = new Array(time + 1);
+	let prevArr = [];
 
 	for (const [keyLevel, level] of Object.entries(quanta)) {
 		for (const [keyQuant, quant] of Object.entries(level)) {
-			for (const [index] of matrix.entries()) {
+			for (const [index] of arr.entries()) {
 				if (quant.time <= index) {
 					let freeTime = index - quant.time;
-					if (freeTime && oldMatrix.length) {
-						if (oldMatrix[freeTime].hasOwnProperty(keyQuant)) {
-							if (oldMatrix[index].max > quant.score + oldMatrix[freeTime].max - oldMatrix[freeTime][keyQuant].score) {
-								matrix[index] = oldMatrix[index];
-							} else {
-								matrix[index] = {...oldMatrix[freeTime], max:quant.score + oldMatrix[freeTime].max - oldMatrix[freeTime][keyQuant].score,[keyQuant]: { keyLevel, time: quant.time, score: quant.score}};
-							}
+					if (freeTime && prevArr.length) {
+						if (prevArr[freeTime].hasOwnProperty(keyQuant)) {
+							prevArr[index].max > quant.score + prevArr[freeTime].max - prevArr[freeTime][keyQuant].score ?
+								arr[index] = prevArr[index] :
+								arr[index] = {...prevArr[freeTime], max:quant.score + prevArr[freeTime].max - prevArr[freeTime][keyQuant].score, [keyQuant]: { keyLevel, time: quant.time, score: quant.score}}
 						} else {
-							if (oldMatrix[index].max > quant.score + oldMatrix[freeTime].max) {
-								matrix[index] = oldMatrix[index];
-							} else {
-								matrix[index] = {...oldMatrix[freeTime], max: quant.score + oldMatrix[freeTime].max, [keyQuant]: { keyLevel, time: quant.time, score: quant.score}};
-							}
+							prevArr[index].max > quant.score + prevArr[freeTime].max ? 
+								arr[index] = prevArr[index] :
+								arr[index] = {...prevArr[freeTime], max: quant.score + prevArr[freeTime].max, [keyQuant]: { keyLevel, time: quant.time, score: quant.score}}
 						}
 					} else {
-						oldMatrix.length && oldMatrix[index].max > quant.score ? (matrix[index] = oldMatrix[index]) : (matrix[index] = { max: quant.score, [keyQuant]: { keyLevel, time: quant.time, score: quant.score}});
+						prevArr.length && prevArr[index].max > quant.score ? (arr[index] = prevArr[index]) : (arr[index] = { max: quant.score, [keyQuant]: { keyLevel, time: quant.time, score: quant.score}});
 					}
 				}
 			}
-			result.push(matrix[matrix.length - 1]);
-			oldMatrix = JSON.parse(JSON.stringify(matrix));
+			result.push(arr[arr.length - 1]);
+			prevArr = JSON.parse(JSON.stringify(arr));
 		}
 	}
-
+	
 	return result[result.length - 1];
 }
 
