@@ -30,7 +30,7 @@ const semanticQuanta = {
 		},
 	},
 };
-const totalTime = 20;
+const totalTime = 9;
 
 function getBestResult(quanta, time) {
 	const result = [];
@@ -61,8 +61,10 @@ function getBestResult(quanta, time) {
 			prevArr = JSON.parse(JSON.stringify(arr));
 		}
 	}
-	
-	return result[result.length - 1];
+
+	return Object.values(result[result.length - 1]).length - 1 === Object.values(quanta.base).length ? 
+					result[result.length - 1] : 
+					`It is impossible to master every quantum in ${time} units of time`;
 }
 
 console.log(getBestResult(semanticQuanta, totalTime));
