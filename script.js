@@ -30,74 +30,43 @@ const semanticQuanta = {
 		},
 	},
 };
-const totalTime = 20;
+const totalTime = 7;
 
-function getAllOptions(quanta, time) {
-	const options = [];
-
-	const matrix = new Array(time + 1).fill(0);
+function getBestResult(quanta, time) {
+	const result = [];
+	const matrix = new Array(time + 1);
 	let oldMatrix = [];
 
 	for (const [keyLevel, level] of Object.entries(quanta)) {
 		for (const [keyQuant, quant] of Object.entries(level)) {
 			for (const [index] of matrix.entries()) {
 				if (quant.time <= index) {
-					if (oldMatrix.length === 0) {
-						matrix[index] = {
-							sum: quant.score,
-							[keyQuant]: { keyLevel, time: quant.time, score: quant.score },
-						};
-					} else if (index - quant.time !== 0) {
-						if (
-							oldMatrix[index].sum >
-							quant.score + oldMatrix[index - quant.time].sum
-						) {
-							matrix[index] = oldMatrix[index];
-						} else {
-							if (oldMatrix[index - quant.time].hasOwnProperty(keyQuant)) {
-								matrix[index] = {
-									...oldMatrix[index - quant.time],
-									sum:
-										quant.score +
-										oldMatrix[index - quant.time].sum -
-										oldMatrix[index - quant.time][keyQuant].score,
-									[keyQuant]: {
-										keyLevel,
-										time: quant.time,
-										score: quant.score,
-									},
-								};
+					let freeTime = index - quant.time;
+					if (freeTime && oldMatrix.length) {
+						if (oldMatrix[freeTime].hasOwnProperty(keyQuant)) {
+							if (oldMatrix[index].max > quant.score + oldMatrix[freeTime].max - oldMatrix[freeTime][keyQuant].score) {
+								matrix[index] = oldMatrix[index];
 							} else {
-								matrix[index] = {
-									...oldMatrix[index - quant.time],
-									sum: quant.score + oldMatrix[index - quant.time].sum,
-									[keyQuant]: {
-										keyLevel,
-										time: quant.time,
-										score: quant.score,
-									},
-								};
+								matrix[index] = {...oldMatrix[freeTime], max:quant.score + oldMatrix[freeTime].max - oldMatrix[freeTime][keyQuant].score,[keyQuant]: { keyLevel, time: quant.time, score: quant.score}};
+							}
+						} else {
+							if (oldMatrix[index].max > quant.score + oldMatrix[freeTime].max) {
+								matrix[index] = oldMatrix[index];
+							} else {
+								matrix[index] = {...oldMatrix[freeTime], max: quant.score + oldMatrix[freeTime].max, [keyQuant]: { keyLevel, time: quant.time, score: quant.score}};
 							}
 						}
 					} else {
-						if (oldMatrix[index].sum > quant.score) {
-							matrix[index] = oldMatrix[index];
-						} else {
-							matrix[index] = {
-								sum: quant.score,
-								[keyQuant]: { keyLevel, time: quant.time, score: quant.score },
-							};
-						}
+						oldMatrix.length && oldMatrix[index].max > quant.score ? (matrix[index] = oldMatrix[index]) : (matrix[index] = { max: quant.score, [keyQuant]: { keyLevel, time: quant.time, score: quant.score}});
 					}
 				}
 			}
-
-			options.push(matrix[matrix.length - 1]);
+			result.push(matrix[matrix.length - 1]);
 			oldMatrix = JSON.parse(JSON.stringify(matrix));
 		}
 	}
 
-	return options[options.length-1];
+	return result[result.length - 1];
 }
 
-console.log(getAllOptions(semanticQuanta, totalTime));
+console.log(getBestResult(semanticQuanta, totalTime));
