@@ -9,7 +9,7 @@ const data = [
   [7, 9,  11, 14, 15],
 ];
 
-let q = 0;              // Коэффициент прироста времени при более высоком уровне освоения предыдущего занятия.
+let q = 0.5;              // Коэффициент прироста времени при более высоком уровне освоения предыдущего занятия.
 let T_0 = data[0].at(-1); // Общее время, подлежащее распределению.
 
 // Объявление функции условной оптимизации.
@@ -19,9 +19,9 @@ function conditionalOptimization(data, q) {
   for (let k = data.length - 1; k > 0; k--) {   // Обход каждого шага управляемого процесса, начиная с последнего.
     conditionalMaximums[`Z_${k}`] = {};         // Создание объекта условного масимума на k-м шаге.
     for (const T of data[0]) {                  // Обход массива с данными о времени, подлежащего распределению.
-      for (let t = T; t > 0; t--) {            // Получение допустимых значений времени.
-        const currLevel = data[k][t - 1];    // Получение уровня освоения на текущем шаге.               TODO: (!!! убрал || 0)
-        
+      for (let t = T; t > 0; t -= data[0][0]) {            // Получение допустимых значений времени.                 TODO: t должен вычитаться слогласно шагу t_1 - t_2 
+        const currLevel = data[k][data[0].indexOf(t)];    // Получение уровня освоения на текущем шаге.               TODO: (!!! убрал || 0) индекс должен браться из массива data[0] по значению data[k][data[0].indexOf(t)]; 
+
         if (currLevel === 0) continue;       // Если уровень освоения равен нулю, пропускаем итерацию 
                                              // (нужно освоить каждое занятие).
         if (conditionalMaximums[`Z_${k + 1}`]) {        // Если существует условный максимум на предыдущем шаге.
@@ -70,4 +70,5 @@ function unconditionalOptimization(conditionalMaximums, data, q) {
 }
 
 let optimization = unconditionalOptimization(conditionalOptimization(data, q), data, q);
+console.table(conditionalOptimization(data, q))
 console.log(optimization);
