@@ -80,5 +80,5 @@
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [product-screenshot]: assets/readme/product.jpg
-[JS.js]: https://img.shields.io/badge/javascript-20232A?style=for-the-badge&logo=javascript
-[JS-url]: https://ecma-international.org/publications-and-standards/standards/ecma-262/
+[javascript.js]: https://img.shields.io/badge/javascript-20232A?style=for-the-badge&logo=javascript
+[javascript-url]: https://ecma-international.org/publications-and-standards/standards/ecma-262/
