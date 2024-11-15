@@ -73,7 +73,7 @@
 ## Контакты
 
 - Гордеев Данил Александрович - [@dangor220](https://t.me/dangor220)
-- Почта - [dan.gor220@yandex.ru](dan.gor220@yandex.ru)
+- Почта - [dan.gor220@yandex.ru](mailto:dan.gor220@yandex.ru)
 
 - Ссылка на проект: [https://github.com/dangor220/dynamic-programming](https://github.com/dangor220/dynamic-programming)
 
