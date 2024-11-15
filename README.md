@@ -7,8 +7,10 @@
 
 <div align="center">
 
-  <img src="assets/readme/logo.png" alt="Logo" width="80" height="80">
-
+  <a href="https://github.com/dangor220/dynamic-programming/blob/main/script/optimization.js">
+    <img src="assets/readme/logo.png" alt="Logo" width="80" height="80">
+  </a>
+ 
   <h3 align="center">Динамическое программирование для эффективного обучения: максимизация результатов через оптимальное распределение времени</h3>
 
   <p align="center">В проекте представлен метод динамического программирования, позволяющий решить задачу оптимального распределения времени между занятиями с целью максимизации уровня освоения материала.
