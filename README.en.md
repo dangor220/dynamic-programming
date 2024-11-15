@@ -2,7 +2,7 @@
 
 <!-- PROJECT LOGO -->
 
-[![READMERU](https://img.shields.io/badge/readme_ru-20232A?style=for-the-badge&logo=ru)](https://github.com/dangor220/dynamic-programming/blob/main/README.md)
+[![READMERU](https://img.shields.io/badge/readme_ru-white?style=for-the-badge&logo=ru)](https://github.com/dangor220/dynamic-programming/blob/main/README.md)
 <br />
 
 <div align="center">
