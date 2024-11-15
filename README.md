@@ -55,7 +55,7 @@
 
 ### Технологии
 
-- [![JS][JS.js]][JS-url]
+- [![javascript][javascript.js]][JS-url]
 
 <p align="right">(<a href="#readme-top">В начало</a>)</p>
 
