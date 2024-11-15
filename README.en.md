@@ -72,7 +72,7 @@ The sequential invocation of these functions with specified arguments allowed th
 ## Contacts
 
 - Gordeev Danil Alexandrovich - [@dangor220](https://t.me/dangor220)
-- Email - [dan.gor220@yandex.ru](dan.gor220@yandex.ru)
+- Email - [dan.gor220@yandex.ru](mailto:dan.gor220@yandex.ru)
 
 - Link to the project: [https://github.com/dangor220/dynamic-programming](https://github.com/dangor220/dynamic-programming)
 
