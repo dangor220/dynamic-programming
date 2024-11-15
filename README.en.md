@@ -40,10 +40,15 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://www.youtube.com/watch?v=8SOLa45m8fk)
 
-The project was developed and presented at the [National Supercomputing Forum 2023](https://2023.nscf.ru/).  
-This work presents a dynamic programming method that solves the problem of optimal time allocation between study sessions to maximize the mastery level of the material. It is assumed that the mastery level of a session is proportional to the time spent on it, and the speed of mastering the next session is inversely proportional to the mastery level of the previous one. The problem formulation is provided, along with the mathematical model of dynamic programming, the Bellman recurrence relation is defined, and the dynamic programming model's code is presented, implementing both conditional and unconditional optimization functions. The sequential invocation of these functions with specified arguments allowed the derivation of control sequences that guide the system to a state where the control result is maximized.
+The project was developed and presented at the [National Supercomputing Forum 2023](https://2023.nscf.ru/).
 
-[View the project presentation](https://www.youtube.com/watch?v=8SOLa45m8fk).
+This work presents a dynamic programming method that solves the problem of optimal time allocation between study sessions to maximize the mastery level of the material. It is assumed that the mastery level of a session is proportional to the time spent on it, and the speed of mastering the next session is inversely proportional to the mastery level of the previous one.
+
+The problem formulation is provided, along with the mathematical model of dynamic programming, the Bellman recurrence relation is defined, and the dynamic programming model's code is presented, implementing both conditional and unconditional optimization functions.
+
+The sequential invocation of these functions with specified arguments allowed the derivation of control sequences that guide the system to a state where the control result is maximized.
+
+[View the project presentation](https://www.youtube.com/watch?v=8SOLa45m8fk)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -63,10 +68,10 @@ The materials of the work can be found at the following [ссылке](https://2
 
 ## Контакты
 
-Gordeev Danil Alexandrovich - [@dangor220](https://t.me/dangor220)
-Email - [dan.gor220@yandex.ru](dan.gor220@yandex.ru)
+- Gordeev Danil Alexandrovich - [@dangor220](https://t.me/dangor220)
+- Email - [dan.gor220@yandex.ru](dan.gor220@yandex.ru)
 
-Link to the project: [https://github.com/dangor220/dynamic-programming](https://github.com/dangor220/dynamic-programming)
+- Link to the project: [https://github.com/dangor220/dynamic-programming](https://github.com/dangor220/dynamic-programming)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
