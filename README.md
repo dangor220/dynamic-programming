@@ -55,13 +55,15 @@
 
 ### Технологии
 
-- [![javascript][javascript.js]][javascript-url]
+[![javascript][javascript.js]][javascript-url]
 
 <p align="right">(<a href="#readme-top">В начало</a>)</p>
 
 ## Материалы
 
-С материалами работы можно ознакомиться по следующей [ссылке](https://2023.nscf.ru/TesisAll/06_Reshenie_zadach_optimizatsii/568_GordeevDA.pdf)
+- [Текст работы](https://2023.nscf.ru/TesisAll/06_Reshenie_zadach_optimizatsii/568_GordeevDA.pdf)
+- [Презентация](https://www.youtube.com/watch?v=8SOLa45m8fk)
+- [Код](https://github.com/dangor220/dynamic-programming/blob/main/optimization.js)
 
 <p align="right">(<a href="#readme-top">В начало</a>)</p>
 

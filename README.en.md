@@ -52,21 +52,23 @@ The sequential invocation of these functions with specified arguments allowed th
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Технологии
+### Technologies
 
 - [![JS][JS.js]][JS-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Материалы
+## Materials
 
-The materials of the work can be found at the following [ссылке](https://2023.nscf.ru/TesisAll/06_Reshenie_zadach_optimizatsii/568_GordeevDA.pdf)
+- [Text of the work](https://2023.nscf.ru/TesisAll/06_Reshenie_zadach_optimizatsii/568_GordeevDA.pdf)
+- [Presentation](https://www.youtube.com/watch?v=8SOLa45m8fk)
+- [Code](https://github.com/dangor220/dynamic-programming/blob/main/optimization.js)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
 
-## Контакты
+## Contacts
 
 - Gordeev Danil Alexandrovich - [@dangor220](https://t.me/dangor220)
 - Email - [dan.gor220@yandex.ru](dan.gor220@yandex.ru)
