@@ -6,7 +6,7 @@
 <br />
 
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/dangor220/dynamic-programming/blob/main/optimization.js">
     <img src="assets/readme/logo.png" alt="Logo" width="80" height="80">
   </a>
 
