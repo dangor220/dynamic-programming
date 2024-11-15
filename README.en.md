@@ -15,7 +15,7 @@
   <p align="center">The project presents a dynamic programming method that solves the problem of optimal time allocation between study sessions to maximize the mastery level of the material.
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template](https://github.com/dangor220/dynamic-programming/blob/main/optimization.js">View Code</a>
+    <a href="https://github.com/dangor220/dynamic-programming/blob/main/optimization.js">View Code</a>
   </p>
 </div>
 
