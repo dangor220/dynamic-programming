@@ -15,7 +15,7 @@
   <p align="center">В проекте представлен метод динамического программирования, позволяющий решить задачу оптимального распределения времени между занятиями с целью максимизации уровня освоения материала.
     <br />
     <br />
-    <a href="https://github.com/dangor220/dynamic-programming/blob/main/optimization.js">Посмотреть код</a>
+    <a href="https://github.com/dangor220/dynamic-programming/tree/main/script/optimization.js">Посмотреть код</a>
   </p>
 </div>
 
