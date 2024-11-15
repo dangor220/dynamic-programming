@@ -63,6 +63,7 @@ The sequential invocation of these functions with specified arguments allowed th
 - [Text of the work](https://2023.nscf.ru/TesisAll/06_Reshenie_zadach_optimizatsii/568_GordeevDA.pdf)
 - [Presentation](https://www.youtube.com/watch?v=8SOLa45m8fk)
 - [Code](https://github.com/dangor220/dynamic-programming/blob/main/optimization.js)
+- [Code with comments](https://github.com/dangor220/dynamic-programming/tree/main/script/locale-comments/optimization-en.js)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

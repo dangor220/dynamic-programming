@@ -63,7 +63,8 @@
 
 - [Текст работы](https://2023.nscf.ru/TesisAll/06_Reshenie_zadach_optimizatsii/568_GordeevDA.pdf)
 - [Презентация](https://www.youtube.com/watch?v=8SOLa45m8fk)
-- [Код](https://github.com/dangor220/dynamic-programming/blob/main/optimization.js)
+- [Код](https://github.com/dangor220/dynamic-programming/tree/main/script/optimization.js)
+- [Код c комментариями](https://github.com/dangor220/dynamic-programming/tree/main/script/locale-comments/optimization-ru.js)
 
 <p align="right">(<a href="#readme-top">В начало</a>)</p>
 
