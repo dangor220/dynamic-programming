@@ -54,7 +54,7 @@ The sequential invocation of these functions with specified arguments allowed th
 
 ### Technologies
 
-- [![JS][JS.js]][JS-url]
+[![JS][JS.js]][JS-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
